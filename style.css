@@ -1,0 +1,801 @@
+/* ==================== 폰트: SOYO Maple ====================
+   폰트 파일은 images 폴더 안에 있어요. 파일 이름이 다르면 아래 url("...") 의 이름만 맞춰주세요.
+   (여러 이름을 적어두면 브라우저가 앞에서부터 찾아보고, 있는 파일을 써요) */
+@font-face {
+  font-family: "SOYO Maple";
+  src:
+    local("SOYO Maple Bold"),
+    local("SOYOMapleBold"),
+    url("images/SOYOMapleBold.ttf") format("truetype"),
+    url("images/SOYO Maple Bold.ttf") format("truetype"),
+    url("images/SoyoMaple-Bold.ttf") format("truetype"),
+    url("images/SoyoMapleBold.ttf") format("truetype");
+  font-weight: 700; /* Bold */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SOYO Maple";
+  src:
+    local("SOYO Maple Regular"),
+    local("SOYOMapleRegular"),
+    url("images/SOYOMapleRegular.ttf") format("truetype"),
+    url("images/SOYO Maple Regular.ttf") format("truetype"),
+    url("images/SoyoMaple-Regular.ttf") format("truetype"),
+    url("images/SoyoMapleRegular.ttf") format("truetype");
+  font-weight: 400; /* Regular (지금은 안 쓰고, 필요할 때 font-weight: 400 으로 사용) */
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "SOYO Maple", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+}
+
+/* 
+  [상하좌우 검은 여백 고정 - 2:1 비율]
+  이미지 시안 비율에 맞춰 가로/세로 비율을 완벽 고정
+*/
+.scene-container {
+  position: relative;
+  /* 배경 원본 비율(1474:640)에 맞춰 화면에 꽉 차게, 남는 곳은 검은 여백 */
+  width: min(100vw, calc(100vh * 1474 / 640));
+  aspect-ratio: 1474 / 640;
+  container-type: inline-size; /* 내부 요소를 cqw(컨테이너 너비 %)로 비례 확대/축소 */
+  overflow: hidden;
+  background-color: #000;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.9);
+}
+
+.scene-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.scene-section.active {
+  display: block;
+}
+
+/* ==================== SCENE 1 (거리 줌인) ==================== */
+.camera-rig {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: cameraWalkBob 8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scene-img {
+  width: 130%;
+  height: 130%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.background-layer,
+.front-layer {
+  transform-origin: center -30%;
+}
+
+.background-layer {
+  animation: walkAndEnterBg 8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.front-layer {
+  animation: walkAndEnterFront 8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes cameraWalkBob {
+  0% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  10% {
+    transform: translateY(-8px) translateX(-5px) rotate(-0.4deg);
+  }
+  20% {
+    transform: translateY(7px) translateX(5px) rotate(0.4deg);
+  }
+  30% {
+    transform: translateY(-10px) translateX(-6px) rotate(-0.5deg);
+  }
+  40% {
+    transform: translateY(8px) translateX(6px) rotate(0.5deg);
+  }
+  50% {
+    transform: translateY(-12px) translateX(-7px) rotate(-0.6deg);
+  }
+  60% {
+    transform: translateY(10px) translateX(7px) rotate(0.6deg);
+  }
+  70% {
+    transform: translateY(-12px) translateX(-4px) rotate(-0.4deg);
+  }
+  80% {
+    transform: translateY(8px) translateX(4px) rotate(0.4deg);
+  }
+  90% {
+    transform: translateY(-4px) translateX(0px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+}
+
+@keyframes walkAndEnterBg {
+  0% {
+    transform: scale(1) translate(0, 0);
+    opacity: 1;
+  }
+  15% {
+    transform: scale(1.08) translate(-0.4vw, -10px);
+  }
+  30% {
+    transform: scale(1.18) translate(0.4vw, -20px);
+  }
+  45% {
+    transform: scale(1.3) translate(-0.3vw, -30px);
+  }
+  60% {
+    transform: scale(1.45) translate(0.3vw, -42px);
+  }
+  75% {
+    transform: scale(1.65) translate(-0.2vw, -55px);
+  }
+  90% {
+    transform: scale(2.1) translate(0, -68px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.6) translate(0, -85px);
+    opacity: 0;
+  }
+}
+
+@keyframes walkAndEnterFront {
+  0% {
+    transform: scale(1) translate(0, 0);
+    opacity: 1;
+  }
+  15% {
+    transform: scale(1.1) translate(0.5vw, -12px);
+  }
+  30% {
+    transform: scale(1.22) translate(-0.5vw, -24px);
+  }
+  45% {
+    transform: scale(1.36) translate(0.4vw, -36px);
+  }
+  60% {
+    transform: scale(1.53) translate(-0.4vw, -50px);
+  }
+  75% {
+    transform: scale(1.75) translate(0.2vw, -65px);
+  }
+  90% {
+    transform: scale(2.3) translate(0, -80px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.9) translate(0, -100px);
+    opacity: 0;
+  }
+}
+
+/* ==================== SCENE 2 (가게 내부) ====================
+   기준 좌표: 배경 1474 x 640 px 을 100% 로 보고 배치 */
+.scene-2 .layer {
+  display: block; /* Scene 1의 flex 중앙정렬 해제 */
+}
+
+.inside-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.inside-bg-layer {
+  z-index: 1;
+}
+.inside-bg-layer .inside-img {
+  height: 100%;
+}
+
+/* 직원: 400x560 원본을 배경과 같은 스케일로 배치 (x 725px, y 101px) */
+.staff-layer {
+  z-index: 2;
+  top: 15.8%;
+  left: 49.2%;
+  width: 27.14%;
+  height: auto;
+}
+
+.staff-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: translateY(120%);
+  opacity: 0;
+}
+
+.staff-img.pop-up {
+  animation: staffPopUp 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes staffPopUp {
+  0% {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+  70% {
+    transform: translateY(-1.5%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 앞 계산대: 1472x480 → 배경 하단에 딱 붙임 */
+.inside-front-layer {
+  z-index: 3;
+  top: auto;
+  bottom: 0;
+  height: auto;
+}
+
+.ui-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* [말풍선 + 선택지 묶음] 말풍선이 길어지면 버튼이 자동으로 같이 내려가요 */
+.dialog-stack {
+  position: absolute;
+  top: 12.4%;
+  left: 21.7%;
+  width: 32.5%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  pointer-events: none;
+}
+
+/* [말풍선] */
+.speech-bubble {
+  position: relative;
+  width: 100%;
+  height: calc(159 * 32.5cqw / 444); /* 디자인 본체 높이 (고정) */
+  opacity: 0;
+  transform: scale(0.85);
+  transform-origin: 90% 100%;
+  transition:
+    opacity 0.3s ease-out,
+    transform 0.3s ease-out;
+}
+
+.speech-bubble.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 말풍선 모양: 디자인 파일(bubble.svg)을 크기 고정으로 그대로 사용
+   - 말풍선 크기가 고정이라 늘어나는 기능 없이 이미지를 한 장으로 깔기만 해요
+   - 디자인 1px = --ub */
+.speech-bubble {
+  --ub: calc(
+    32.5cqw / 444
+  ); /* 디자인 말풍선 본체(444px)가 32.5cqw 가 되는 비율 */
+}
+
+.bubble-shape {
+  position: absolute;
+  /* 디자인 이미지(513x217) 안에서 본체(444x159)의 위치만큼 바깥으로 */
+  left: calc(var(--ub) * -25.37);
+  top: calc(var(--ub) * -26.77);
+  width: calc(var(--ub) * 513);
+  height: calc(var(--ub) * 217);
+  background: url("images/ui/bubble.svg") no-repeat center / 100% 100%;
+  pointer-events: none;
+}
+
+.dialogue-text {
+  position: absolute;
+  inset: 0;
+  padding: 3cqw 2cqw 0 4.2cqw;
+  font-size: 2.1cqw;
+  font-weight: 700; /* Bold */
+  color: #4a3e3d;
+  line-height: 1.5;
+  white-space: pre-line;
+  word-break: keep-all; /* 단어 중간에서 끊지 않음 (줄 나눔은 script.js 가 정리) */
+  overflow-wrap: break-word;
+  letter-spacing: -0.03em;
+}
+
+/* 아직 안 쳐진 글자: 자리만 차지하고 안 보임 */
+.dialogue-text .rest {
+  visibility: hidden;
+}
+
+/* [대답 버튼] */
+.choice-container {
+  position: absolute;
+  left: 50%;
+  bottom: 3.5%; /* 하단에서 떨어진 거리: 키우면 위로 */
+  width: max-content;
+  max-width: 90cqw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* 가운데 정렬 */
+  align-items: center;
+  gap: 0.8cqw; /* 버튼 사이 간격 */
+  opacity: 0;
+  transform: translate(-50%, 1cqw);
+  transition:
+    opacity 0.3s ease-out,
+    transform 0.3s ease-out;
+  pointer-events: none;
+}
+
+.choice-container.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+}
+
+/* 버튼 모양: 디자인(button.svg)의 거친 테두리를 글자 길이에 맞춰 script.js 가 그때그때 그려줘요
+   - 이어붙이는 방식이 아니라서 선/틈이 생기지 않고, 양쪽 둥근 끝과 질감은 디자인 그대로예요
+   - --ubtn : 디자인 1px 이 화면에서 차지하는 크기 (버튼 전체 크기는 이 값만 바꾸세요) */
+.choice-btn {
+  --ubtn: 0.057cqw;
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(var(--ubtn) * 82.2027);
+  padding: 0 calc(var(--ubtn) * 57); /* 둥근 끝 40 + 글자 여백 17 */
+  font-family: inherit;
+  font-size: calc(var(--ubtn) * 28);
+  font-weight: 700;
+  white-space: nowrap;
+  color: rgba(107, 91, 91, 0.4); /* 선택안함 */
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transform-origin: center;
+  transition:
+    transform 0.15s ease-out,
+    color 0.15s ease-out;
+}
+
+.btn-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.btn-ring {
+  fill: #ccc4c4; /* 선택안함 */
+  transition: fill 0.15s ease-out;
+}
+
+.btn-label {
+  position: relative;
+  z-index: 1;
+}
+
+/* 호버: 진해지면서 살짝 커짐 (크기는 scale 값으로 조절) */
+.choice-btn:hover {
+  color: rgba(107, 91, 91, 0.8);
+  transform: scale(1.1);
+}
+.choice-btn:hover .btn-ring {
+  fill: #847272;
+}
+
+/* 클릭: 눌린 것처럼 살짝 작아짐 */
+.choice-btn:active,
+.choice-btn.is-picked {
+  color: rgba(107, 91, 91, 0.6);
+  transform: scale(0.94);
+}
+.choice-btn:active .btn-ring,
+.choice-btn.is-picked .btn-ring {
+  fill: #847272;
+  fill-opacity: 0.7;
+}
+
+/* 페이드 오버레이 */
+.fade-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+
+.fade-overlay.blackout {
+  opacity: 1;
+}
+
+/* ==================== SCENE 3 (영수증 확인 → 결제) ====================
+   기준 좌표: 배경 1474 x 640 px (--d = 디자인 1px) */
+.scene-3 {
+  --d: calc(100cqw / 1474);
+}
+
+.scene-3 .layer {
+  display: block;
+}
+
+/* 추천 강아지 (위치/크기는 script.js 가 견종마다 계산해서 넣어요) */
+.s3-dog {
+  position: absolute;
+  z-index: 2;
+  height: auto;
+  opacity: 0;
+  transform: translateY(3%);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+}
+.s3-dog.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 직원: 디자인(Frame_10)에서 1_h_stand 를 1.26배로 (x 812, y 42) 놓은 위치 */
+.s3-staff-layer {
+  position: absolute;
+  z-index: 3;
+  left: calc(var(--d) * 812);
+  top: calc(var(--d) * 42);
+  width: calc(var(--d) * 504);
+}
+
+/* 카드를 든 손: 아래에서 위로 스윽 */
+.s3-hand {
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  transform: translateY(110%);
+  opacity: 0;
+}
+.s3-hand.show {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    transform 1s cubic-bezier(0.2, 0.8, 0.25, 1),
+    opacity 0.3s ease-out;
+}
+/* 손 이미지가 화면 전체 크기가 아닌 '잘라낸 이미지'일 때 (script.js 가 자동으로 붙임) */
+.s3-hand.is-cropped {
+  left: calc(var(--d) * 680);
+  width: auto;
+}
+
+/* ---------- 영수증 ----------
+   --rs : 영수증 디자인(Group_3) 1px.  디자인 대비 0.9875배 */
+.receipt {
+  --rs: calc(var(--d) * 0.9875);
+  position: absolute;
+  z-index: 5;
+  left: calc(var(--d) * 738.15);
+  top: calc(var(--d) * 24.15);
+  width: calc(var(--d) * 637.7);
+  height: calc(var(--d) * 615.85); /* 화면 맨 아래까지 */
+  overflow: hidden;
+  transform: translateY(105%);
+  transition:
+    transform 0.8s cubic-bezier(0.2, 0.8, 0.25, 1),
+    opacity 0.5s ease-out;
+}
+.receipt.is-in {
+  transform: translateY(calc(var(--d) * 36)); /* 처음 보이는 위치 (Frame 1) */
+}
+.receipt.is-up {
+  transform: translateY(0); /* 청구 금액 확인 후 위로 올라간 위치 (Frame 2) */
+}
+.receipt.is-out {
+  transform: translateY(calc(var(--d) * 90));
+  opacity: 0;
+  pointer-events: none;
+}
+
+.receipt-bg {
+  position: absolute;
+  left: calc(var(--rs) * 24);
+  right: calc(var(--rs) * 24);
+  top: calc(var(--rs) * 24);
+  bottom: 0;
+  background: linear-gradient(180deg, #eeeae0 0%, #e9e2d5 100%);
+}
+
+/* 뒷 배경에 흐릿하게 깔리는 로고: 스크롤해도 위치 고정 */
+.receipt-watermark {
+  position: absolute;
+  left: calc(var(--rs) * 105);
+  top: calc(var(--rs) * 202);
+  width: calc(var(--rs) * 428);
+  height: auto;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+/* 영수증이 올라가 스크롤 상태가 되면 로고가 뒤에 흐릿하게 나타남 */
+.receipt.is-up .receipt-watermark {
+  opacity: 1;
+}
+
+.receipt-frame {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+.receipt-scroll {
+  position: absolute;
+  inset: 0;
+  overflow-y: hidden; /* '청구된 금액 확인하기'를 누르기 전에는 스크롤 잠금 */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  touch-action: pan-y;
+  /* 글자가 위쪽 테두리 밑으로 부드럽게 사라지도록 */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent calc(var(--rs) * 30),
+    #000 calc(var(--rs) * 62)
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent calc(var(--rs) * 30),
+    #000 calc(var(--rs) * 62)
+  );
+}
+.receipt-scroll::-webkit-scrollbar {
+  display: none;
+}
+.receipt-scroll.is-unlocked {
+  overflow-y: auto;
+}
+
+.r-content {
+  position: relative;
+  padding: calc(var(--rs) * 81) calc(var(--rs) * 76) calc(var(--rs) * 150)
+    calc(var(--rs) * 55);
+  color: #9d8f82;
+  font-weight: 700;
+}
+
+/* 헤더(로고/상호/시간): 영수증 가운데 정렬 */
+.r-header {
+  margin: 0 calc(var(--rs) * -76) 0 calc(var(--rs) * -55);
+  text-align: center;
+}
+.r-logo {
+  display: block;
+  margin: 0 auto;
+  height: calc(var(--rs) * 56);
+  width: auto;
+  clip-path: inset(2.5%); /* 로고 이미지 가장자리의 얇은 테두리 제거 */
+  filter: url(#logo-solid);
+}
+.r-brand {
+  margin-top: calc(var(--rs) * 9);
+  font-size: calc(var(--rs) * 36);
+  line-height: calc(var(--rs) * 44);
+  letter-spacing: -0.01em;
+}
+.r-stamp {
+  margin-top: calc(var(--rs) * 8);
+  font-size: calc(var(--rs) * 17);
+  line-height: calc(var(--rs) * 24);
+}
+
+.r-title {
+  margin-top: calc(var(--rs) * 44);
+  font-size: calc(var(--rs) * 42);
+  line-height: calc(var(--rs) * 52);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.r-life {
+  margin-top: calc(var(--rs) * 18);
+  font-size: calc(var(--rs) * 26);
+  line-height: calc(var(--rs) * 34);
+}
+
+/* '청구된 금액 확인하기' / '결제하기' 버튼 + 아래 화살표 */
+.r-cta,
+.r-pay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: calc(var(--rs) * -55);
+  margin-right: calc(var(--rs) * -76);
+}
+.r-cta {
+  height: calc(var(--rs) * 106);
+  margin-top: calc(var(--rs) * 58.5);
+  overflow: visible;
+  transition:
+    height 0.6s ease,
+    margin-top 0.6s ease,
+    opacity 0.35s ease;
+}
+.r-cta.is-gone {
+  height: 0;
+  margin-top: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.r-cta.is-gone > * {
+  visibility: hidden;
+  transition: visibility 0s 0.35s;
+}
+.r-pay {
+  margin-top: calc(var(--rs) * 101.5);
+}
+
+.cta-btn {
+  color: rgba(107, 91, 91, 0.85);
+}
+.cta-btn .btn-ring {
+  fill: #a39689;
+}
+
+.r-arrow {
+  width: calc(var(--rs) * 44);
+  height: calc(var(--rs) * 44);
+  margin-top: calc(var(--rs) * -7);
+  position: relative;
+  z-index: 0;
+  animation: arrowBob 1.4s ease-in-out infinite;
+}
+@keyframes arrowBob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(calc(var(--rs) * 5));
+  }
+}
+
+/* 질환 한 칸 */
+.r-sec {
+  margin-top: calc(var(--rs) * 90.5);
+}
+.r-sec:first-of-type {
+  margin-top: calc(var(--rs) * 77);
+}
+.r-sec-title {
+  font-size: calc(var(--rs) * 29);
+  line-height: calc(var(--rs) * 40);
+  font-weight: 700;
+}
+.r-row {
+  display: flex;
+  align-items: flex-start;
+  font-size: calc(var(--rs) * 25);
+  line-height: calc(var(--rs) * 40);
+}
+.r-sec-title + .r-row {
+  margin-top: calc(var(--rs) * 23);
+}
+.r-row + .r-row {
+  margin-top: calc(var(--rs) * 5.5);
+}
+.r-label {
+  flex: none;
+  white-space: nowrap;
+}
+.r-label-fixed {
+  min-width: calc(var(--rs) * 134);
+}
+.r-dots {
+  flex: 1 1 auto;
+  min-width: calc(var(--rs) * 20);
+  height: calc(var(--rs) * 6);
+  margin: calc(var(--rs) * 17) calc(var(--rs) * 25) 0 0;
+  background: radial-gradient(
+      circle,
+      currentColor 0,
+      currentColor calc(var(--rs) * 2.3),
+      transparent calc(var(--rs) * 2.9)
+    )
+    0 50% / calc(var(--rs) * 16.4) 100% space no-repeat;
+}
+.r-val {
+  max-width: 56%; /* 긴 설명은 여기서 줄바꿈 (점선이 너무 짧아지지 않게) */
+  text-align: right;
+  text-wrap: balance; /* 줄 길이를 비슷하게 (한 글자만 남는 줄 방지) */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.r-desc {
+  margin-top: calc(var(--rs) * 31.5);
+  font-size: calc(var(--rs) * 22);
+  line-height: calc(var(--rs) * 39.8);
+  font-weight: var(
+    --receipt-desc-weight,
+    700
+  ); /* 설명 글씨 굵기 (Regular 로 바꾸려면 400) */
+  word-break: keep-all;
+}
+.r-cost {
+  margin-top: calc(var(--rs) * 40);
+  font-size: calc(var(--rs) * 31);
+  line-height: calc(var(--rs) * 46);
+  color: #bfa273;
+}
+.r-desc + .r-cost {
+  margin-top: calc(var(--rs) * 55.5);
+}
+.r-cost .r-label {
+  margin-right: calc(var(--rs) * 1);
+}
+.r-cost .r-dots {
+  margin-left: calc(var(--rs) * 26);
+  margin-top: calc(var(--rs) * 20);
+}
+.r-note {
+  margin-top: calc(var(--rs) * 2);
+  font-size: calc(var(--rs) * 20);
+  line-height: calc(var(--rs) * 28);
+  text-align: right;
+  color: #b3a69a;
+  word-break: keep-all;
+}
